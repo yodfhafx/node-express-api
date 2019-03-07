@@ -18,6 +18,7 @@ const apiGetTours_1 = require("./api/tours/apiGetTours");
 const apiGetTourDetail_1 = require("./api/tours/apiGetTourDetail");
 const apiCreateTour_1 = require("./api/tours/apiCreateTour");
 const apiDeleteTour_1 = require("./api/tours/apiDeleteTour");
+const apiUpdateTour_1 = require("./api/tours/apiUpdateTour");
 // console.log(JSON.parse(JSON.stringify(DataStore.tours)));
 app.get('/', (req, res, next) => {
     res.send('Tour Booking API');
@@ -26,6 +27,7 @@ app.get('/tours', apiGetTours_1.apiGetTours);
 app.get('/tours/:id', apiGetTourDetail_1.apiGetTourDetail);
 app.post('/tours', jsonParser, apiCreateTour_1.apiCreateTour);
 app.delete('/tours/:id', apiDeleteTour_1.apiDeleteTour);
+app.patch('/tours/:id', jsonParser, apiUpdateTour_1.apiUpdateTour);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`server run at port: ${port}`);

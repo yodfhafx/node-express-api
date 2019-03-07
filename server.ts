@@ -9,6 +9,7 @@ import { apiGetTours } from './api/tours/apiGetTours';
 import { apiGetTourDetail } from './api/tours/apiGetTourDetail';
 import { apiCreateTour } from './api/tours/apiCreateTour';
 import { apiDeleteTour } from './api/tours/apiDeleteTour';
+import { apiUpdateTour } from './api/tours/apiUpdateTour';
 
 // console.log(JSON.parse(JSON.stringify(DataStore.tours)));
 
@@ -23,6 +24,8 @@ app.get('/tours/:id', apiGetTourDetail);
 app.post('/tours', jsonParser, apiCreateTour);
 
 app.delete('/tours/:id', apiDeleteTour);
+
+app.patch('/tours/:id', jsonParser, apiUpdateTour);
 
 const port = process.env.PORT || 3000
 
