@@ -20,6 +20,17 @@ const apiCreateTour_1 = require("./api/tours/apiCreateTour");
 const apiDeleteTour_1 = require("./api/tours/apiDeleteTour");
 const apiUpdateTour_1 = require("./api/tours/apiUpdateTour");
 // console.log(JSON.parse(JSON.stringify(DataStore.tours)));
+const authenticator = (req, res, next) => {
+    const username = "Marvel";
+    req.user = username;
+    next();
+};
+const logger = (req, res, next) => {
+    console.log("User: " + req.user + " - " + new Date() + " - " + req.method + " Request to " + req.path);
+    next();
+};
+app.use(authenticator);
+app.use(logger);
 app.get('/', (req, res, next) => {
     res.send('Tour Booking API');
 });
