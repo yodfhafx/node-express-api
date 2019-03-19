@@ -20,10 +20,13 @@ const apiGetTourDetail_1 = require("./api/tours/apiGetTourDetail");
 const apiCreateTour_1 = require("./api/tours/apiCreateTour");
 const apiDeleteTour_1 = require("./api/tours/apiDeleteTour");
 const apiUpdateTour_1 = require("./api/tours/apiUpdateTour");
+const path_1 = __importDefault(require("path"));
 // console.log(JSON.parse(JSON.stringify(DataStore.tours)));
 const morgan_1 = __importDefault(require("morgan"));
+const apiUploadImage_1 = require("./api/tours/apiUploadImage");
 const logger = morgan_1.default('dev');
 app.use(logger);
+app.use('/static', express_1.default.static(path_1.default.resolve("./", "public", "img")));
 const authenticator = (req, res, next) => {
     const username = "Marvel";
     req.user = username;
@@ -37,6 +40,7 @@ app.get('/tours/:id', apiGetTourDetail_1.apiGetTourDetail);
 app.post('/tours', jsonParser, apiCreateTour_1.apiCreateTour);
 app.delete('/tours/:id', apiDeleteTour_1.apiDeleteTour);
 app.patch('/tours/:id', jsonParser, apiUpdateTour_1.apiUpdateTour);
+app.post('/tours/:id/img', apiUploadImage_1.apiUploadImage);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`server run at port: ${port}`);
