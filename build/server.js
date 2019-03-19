@@ -24,6 +24,7 @@ const path_1 = __importDefault(require("path"));
 // console.log(JSON.parse(JSON.stringify(DataStore.tours)));
 const morgan_1 = __importDefault(require("morgan"));
 const apiUploadImage_1 = require("./api/tours/apiUploadImage");
+const errorHandling_1 = require("./api/general/errorHandling");
 const logger = morgan_1.default('dev');
 app.use(logger);
 app.use('/static', express_1.default.static(path_1.default.resolve("./", "public", "img")));
@@ -41,6 +42,7 @@ app.post('/tours', jsonParser, apiCreateTour_1.apiCreateTour);
 app.delete('/tours/:id', apiDeleteTour_1.apiDeleteTour);
 app.patch('/tours/:id', jsonParser, apiUpdateTour_1.apiUpdateTour);
 app.post('/tours/:id/img', apiUploadImage_1.apiUploadImage);
+app.use(errorHandling_1.apiErrorHandler);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`server run at port: ${port}`);

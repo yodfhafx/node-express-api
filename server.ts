@@ -18,6 +18,7 @@ import path from 'path';
 import morgan from 'morgan';
 import { pathToFileURL } from 'url';
 import { apiUploadImage } from './api/tours/apiUploadImage';
+import { apiErrorHandler } from './api/general/errorHandling';
 const logger = morgan('dev');
 
 app.use(logger);
@@ -45,6 +46,8 @@ app.delete('/tours/:id', apiDeleteTour);
 app.patch('/tours/:id', jsonParser, apiUpdateTour);
 
 app.post('/tours/:id/img', apiUploadImage);
+
+app.use(apiErrorHandler);
 
 const port = process.env.PORT || 3000
 
