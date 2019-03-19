@@ -14,23 +14,21 @@ const express_1 = __importDefault(require("express"));
 const app = express_1.default();
 const bodyparser = __importStar(require("body-parser"));
 const jsonParser = bodyparser.json();
+const urlEncodedParser = bodyparser.urlencoded({ extended: true });
 const apiGetTours_1 = require("./api/tours/apiGetTours");
 const apiGetTourDetail_1 = require("./api/tours/apiGetTourDetail");
 const apiCreateTour_1 = require("./api/tours/apiCreateTour");
 const apiDeleteTour_1 = require("./api/tours/apiDeleteTour");
 const apiUpdateTour_1 = require("./api/tours/apiUpdateTour");
 // console.log(JSON.parse(JSON.stringify(DataStore.tours)));
+const morgan_1 = __importDefault(require("morgan"));
+const logger = morgan_1.default('dev');
+app.use(logger);
 const authenticator = (req, res, next) => {
     const username = "Marvel";
     req.user = username;
     next();
 };
-const logger = (req, res, next) => {
-    console.log("User: " + req.user + " - " + new Date() + " - " + req.method + " Request to " + req.path);
-    next();
-};
-app.use(authenticator);
-app.use(logger);
 app.get('/', (req, res, next) => {
     res.send('Tour Booking API');
 });

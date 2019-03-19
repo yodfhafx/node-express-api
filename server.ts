@@ -3,6 +3,7 @@ const app = express();
 
 import * as bodyparser from 'body-parser';
 const jsonParser = bodyparser.json();
+const urlEncodedParser = bodyparser.urlencoded({extended: true});
 
 import { DataStore } from './data/data';
 import { apiGetTours } from './api/tours/apiGetTours';
@@ -13,20 +14,16 @@ import { apiUpdateTour } from './api/tours/apiUpdateTour';
 import { CustomRequestHandler } from './model/express';
 
 // console.log(JSON.parse(JSON.stringify(DataStore.tours)));
+import morgan from 'morgan';
+const logger = morgan('dev');
+
+app.use(logger);
 
 const authenticator: CustomRequestHandler = (req, res, next) => {
   const username = "Marvel";
   req.user = username;
   next();
-}
-
-const logger: CustomRequestHandler = (req, res, next) => {
-  console.log("User: " + req.user + " - " + new Date() + " - " + req.method + " Request to " + req.path);
-  next();
 };
-
-app.use(authenticator);
-app.use(logger);
 
 app.get('/', (req, res, next) => {
   res.send('Tour Booking API');
